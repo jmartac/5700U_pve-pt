@@ -120,6 +120,8 @@ update-initramfs -u -k all
 
 ## VM
 
+<img src="./vm.png">
+
 cat `/etc/pve/qemu-server/100.conf`
 
 ```
