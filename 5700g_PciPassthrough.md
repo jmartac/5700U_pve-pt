@@ -157,7 +157,9 @@ vmgenid: 0d925793-ba2e-428c-a18a-dce241a2f55f
 ## Sources
 
 https://www.bilibili.com/video/BV11d4y1G7Nk/
+
 https://gist.github.com/matt22207/bb1ba1811a08a715e32f106450b0418a
+
 https://github.com/isc30/ryzen-7000-series-proxmox
 
 
