@@ -161,6 +161,77 @@ sshkeys: #############
 vmgenid: 0d925793-ba2e-428c-a18a-dce241a2f55f
 ```
 
+
+## Guest Ubuntu AMD Drivers Install
+
+```
+wget https://repo.radeon.com/rocm/rocm.gpg.key -O - | gpg --dearmor | sudo tee /etc/apt/keyrings/rocm.gpg > /dev/null
+
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/amdgpu/6.0.2/ubuntu jammy main"     | sudo tee /etc/apt/sources.list.d/amdgpu.list
+
+sudo apt update
+sudo apt install amdgpu-dkms
+reboot
+```
+```
+lsmod | grep gpu
+amdgpu              14749696  0
+amddrm_ttm_helper      16384  1 amdgpu
+amdttm                 94208  2 amdgpu,amddrm_ttm_helper
+amdxcp                 16384  1 amdgpu
+amddrm_buddy           20480  1 amdgpu
+amd_sched              49152  1 amdgpu
+amdkcl                 40960  3 amd_sched,amdttm,amdgpu
+i2c_algo_bit           16384  1 amdgpu
+drm_kms_helper        311296  2 amdgpu
+drm                   622592  9 drm_kms_helper,amd_sched,amdttm,amdgpu,amddrm_buddy,amdkcl,amddrm_ttm_helper,amdxcp
+```
+
+```
+[...]
+01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Cezanne [1002:1638] (rev c8)
+        Subsystem: Gigabyte Technology Co., Ltd Cezanne [1458:d000]
+        Kernel driver in use: amdgpu
+        Kernel modules: amdgpu
+[...]
+```
+
+```
+ls /dev/dri/
+by-path  card0  renderD128
+```
+
+```
+vainfo
+error: can't connect to X server!
+libva info: VA-API version 1.14.0
+libva info: Trying to open /usr/lib/x86_64-linux-gnu/dri/radeonsi_drv_video.so
+libva info: Found init function __vaDriverInit_1_14
+libva info: va_openDriver() returns 0
+vainfo: VA-API version: 1.14 (libva 2.12.0)
+vainfo: Driver version: Mesa Gallium driver 23.2.1-1ubuntu3.1~22.04.2 for RENOIR (renoir, LLVM 15.0.7, DRM 3.56, 5.15.0-126-generic)
+vainfo: Supported profile and entrypoints
+      VAProfileMPEG2Simple            : VAEntrypointVLD
+      VAProfileMPEG2Main              : VAEntrypointVLD
+      VAProfileVC1Simple              : VAEntrypointVLD
+      VAProfileVC1Main                : VAEntrypointVLD
+      VAProfileVC1Advanced            : VAEntrypointVLD
+      VAProfileH264ConstrainedBaseline: VAEntrypointVLD
+      VAProfileH264ConstrainedBaseline: VAEntrypointEncSlice
+      VAProfileH264Main               : VAEntrypointVLD
+      VAProfileH264Main               : VAEntrypointEncSlice
+      VAProfileH264High               : VAEntrypointVLD
+      VAProfileH264High               : VAEntrypointEncSlice
+      VAProfileHEVCMain               : VAEntrypointVLD
+      VAProfileHEVCMain               : VAEntrypointEncSlice
+      VAProfileHEVCMain10             : VAEntrypointVLD
+      VAProfileHEVCMain10             : VAEntrypointEncSlice
+      VAProfileJPEGBaseline           : VAEntrypointVLD
+      VAProfileVP9Profile0            : VAEntrypointVLD
+      VAProfileVP9Profile2            : VAEntrypointVLD
+      VAProfileNone                   : VAEntrypointVideoProc
+```
+
 ## Sources
 
 https://www.bilibili.com/video/BV11d4y1G7Nk/
