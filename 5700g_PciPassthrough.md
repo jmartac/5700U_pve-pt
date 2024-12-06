@@ -4,7 +4,7 @@
 
 ## Modules
 
-in /etc/modules add:
+in `/etc/modules add:`
 
 ```
 vfio
@@ -15,12 +15,17 @@ vfio_iommu_type1
 
 ## Blacklist
 
+```
 echo "blacklist amdgpu" >> /etc/modprobe.d/blacklist.conf
 echo "blacklist radeon" >> /etc/modprobe.d/blacklist.conf
+```
+```
 update-initramfs -u -k all
+```
 
 ## PCI ID's
 
+```
 root@pve:~# lspci -nnk
 
 00:00.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Renoir/Cezanne Root Complex [1022:1630]
@@ -94,24 +99,30 @@ root@pve:~# lspci -nnk
         Subsystem: Gigabyte Technology Co., Ltd Family 17h/19h HD Audio Controller [1458:a194]
         Kernel driver in use: snd_hda_intel
         Kernel modules: snd_hda_intel
-
+```
         
-iGPU PCI ID	0000:04:00.0
-device id 1002:1638
+`iGPU PCI ID	0000:04:00.0
+device id 1002:1638`
 
 ## Loading vfio modules
 
-nano /etc/modprobe.d/pt.conf
+nano `/etc/modprobe.d/pt.conf`
 add:
 
+```
 options vfio-pci ids=1002:1638
 #options vfio-pci disable_idle_d3=1
+```
 
+```
 update-initramfs -u -k all
+```
 
-VM
-cat /etc/pve/qemu-server/100.conf
+## VM
 
+cat `/etc/pve/qemu-server/100.conf`
+
+```
 #192.168.1.69
 agent: 1
 boot: order=scsi0
@@ -141,7 +152,7 @@ smbios1: uuid=5160cd4f-78bf-415d-8892-a054fe3e4758
 sockets: 1
 sshkeys: #############
 vmgenid: 0d925793-ba2e-428c-a18a-dce241a2f55f
-
+```
 
 ## Sources
 
