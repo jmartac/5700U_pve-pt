@@ -1,3 +1,8 @@
+## Hardware
+
+- CP: AMD Ryzen 7 5700G
+- MB: Gigabyte Aorus 550M Elite
+
 ## Grub Command Line
  
 ```quiet iommu=pt initcall_blacklist=sysfb_init```
