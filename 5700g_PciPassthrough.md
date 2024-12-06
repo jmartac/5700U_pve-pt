@@ -1,15 +1,17 @@
 ## Grub Command Line
  
-quiet iommu=pt initcall_blacklist=sysfb_init
+```quiet iommu=pt initcall_blacklist=sysfb_init```
 
 ## Modules
 
 in /etc/modules add:
 
+```
 vfio
 vfio_pci
 vfio_viqfd
 vfio_iommu_type1
+```
 
 ## Blacklist
 
